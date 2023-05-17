@@ -1,0 +1,17 @@
+nav{
+    margin-bottom: 3%;
+}
+
+.maincontainer {
+    display: flex !important;
+    justify-content: space-around;
+}
+
+.table {
+    text-align: center
+}
+
+.btn_create{
+    display: flex;
+    justify-content: right;
+}

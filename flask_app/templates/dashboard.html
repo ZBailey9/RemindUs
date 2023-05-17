@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>RemindUs</title>
+</head>
+<body>
+    <nav class="navbar navbar-light bg-light mb-4">
+        <h1 class="navbar-brand pl-4">RemindUs</h1>
+        <ul class="navbar-nav ml-auto list-group-horizontal">
+            <li class="nav-item mr-2"><a class="btn btn-info" href="/chores">Reminders</a></li>
+            <li class="nav-item">
+                <a class="btn btn-outline-dark" href="/logout">Log Out</a>
+            </li>
+        </ul>
+    </nav>
+    <div class="container">
+        <div class="row">
+            <div class="col-6">
+                <h5 class="mb-4">Reminders for {{ session['user_firstname'] }}</h5>
+                <table class="table">
+                    <thead>
+                        <th>Name</th>
+                        <th>Actions</th>
+                    </thead>
+                    <tbody>
+                        {% for chore in user_chore %}
+                        <tr>
+                            <td>{{ chore.chore }}</td>
+                            <td><a href="/edit/chore/{{ chore.id }}">Edit</a> | <a href="/delete/chore/{{ chore.id }}">Delete</a></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-6">
+                <h5>Add New Reminder</h5>
+                {% with messages = get_flashed_messages(category_filter=["chore"]) %}
+                    {% if messages %}
+                        {% for message in messages %}
+                        <p class="text-danger mb-0">{{ message }}</p>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+                <form action="/process/chore" method="post">
+                    <div class="form-group">
+                        <label for="chore" class="col-form-label">Task:</label>
+                        <input type="text" name="chore" class="form-control" value="{{ session['chore'] }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="Time" class="col-form-label">Time:</label>
+                        <input type="text" name="time" class="form-control" value="{{ session['time'] }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="questions" class="col-form-label">Questions?</label>
+                        <input type="text" name="questions" class="form-control" value="{{ session['questions'] }}">
+                    </div>
+                    <button type="submit" class="btn btn-outline-secondary">Add Reminder</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

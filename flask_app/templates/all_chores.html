@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>RemindUs</title>
+</head>
+<body>
+    <nav class="navbar navbar-light bg-light mb-4">
+        <h1 class="navbar-brand pl-4">RemindUs</h1>
+        <ul class="navbar-nav ml-auto list-group-horizontal">
+            <li class="nav-item mr-2"><a class="btn btn-info" href="/dashboard">Dashboard</a></li>
+            <li class="nav-item">
+                <a class="btn btn-outline-dark" href="/logout">Log Out</a>
+            </li>
+        </ul>
+    </nav>
+    <div class="container">
+        <h5 class="mb-4">RemindUs</h5>
+        <table class="table">
+            <thead>
+                <th>Chore</th>
+                <th>Chore by</th>
+                <th>Times</th>
+            </thead>
+            <tbody>
+                {% for chore in all_chores %}
+                <tr>
+                    <td><a href="/show/{{ chore.id }}">{{ chore.chore }}</a></td>
+                    <td>{{ chore.creator.first_name }}</td>
+                    <td>{{ chore.num_votes }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
